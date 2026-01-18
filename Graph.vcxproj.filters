@@ -16,28 +16,40 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{e081dde0-13c9-4afe-92ed-e04af9994e66}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\OpenGL">
+      <UniqueIdentifier>{be5710b7-79ff-4573-bcce-ebf33dc41f74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OpenGL">
+      <UniqueIdentifier>{f59c31e5-7a4a-4efd-a677-bdfd7d991fab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\OpenGL\Layers">
+      <UniqueIdentifier>{d4090558-53ee-408d-9a39-4d0a951cf1a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OpenGL\Layers">
+      <UniqueIdentifier>{cf8bdc41-eaf9-4f78-8ee3-a0284fdb51c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shaderClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VAO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VBO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EBO.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="Setup.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderClass.cpp">
+      <Filter>Source Files\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="EBO.cpp">
+      <Filter>Source Files\OpenGL\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="VAO.cpp">
+      <Filter>Source Files\OpenGL\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="VBO.cpp">
+      <Filter>Source Files\OpenGL\Layers</Filter>
     </ClCompile>
     <ClCompile Include="FunctionPath.cpp">
       <Filter>Source Files</Filter>
@@ -50,25 +62,28 @@
     <None Include="default.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="function.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EBO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shaderClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VAO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VBO.h">
+    <ClInclude Include="FunctionPath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Setup.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="FunctionPath.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ShaderClass.h">
+      <Filter>Header Files\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="EBO.h">
+      <Filter>Header Files\OpenGL\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="VAO.h">
+      <Filter>Header Files\OpenGL\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="VBO.h">
+      <Filter>Header Files\OpenGL\Layers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

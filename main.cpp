@@ -9,7 +9,7 @@
 #include<vector>
 
 #include"Setup.h"
-#include"shaderClass.h"
+#include"ShaderClass.h"
 #include"VAO.h"
 #include"VBO.h"
 #include"EBO.h"
@@ -43,7 +43,7 @@ int main()
 
 
 	Shader Grid("default.vert", "default.frag");
-	//Shader function("function.vert", "default.frag");
+	Shader function("function.vert", "default.frag");
 
 	VAO VAO1;
 	VAO1.Bind();
@@ -57,22 +57,31 @@ int main()
 	GLint modelLoc = glGetUniformLocation(Grid.ID, "translated");
 
 
-	FunctionPath line("x", width);
+
+	FunctionPath line("sin(x)", width);
 	line.parseFunction();
 	line.makeVertices();
-
+	VAO VAO2;
+	VAO2.Bind();
+	VBO VBO2(line.vertices.data(), line.vertices.size() * sizeof(line.vertices[0]));
+	VAO2.LinkAttrib(VBO2, 0, 2, GL_FLOAT, 2 * sizeof(float), (void*)0);
+	VAO2.Unbind();
+	VBO2.Unbind();
+	
 
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow()))
 	{
 		VIEWPORT.glClearCurrentColor();
 		glClear(GL_COLOR_BUFFER_BIT);
-		Grid.Activate();
 
+
+		// Draw grid
+		Grid.Activate();
 		VAO1.Bind();
+
 		GLfloat shade = 0.5f;
 		glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(shade, shade, shade)));
 
-		// Draw grid
 		GLfloat spacing = 0.1f;
 		int linesAmount = 19;
 		for (int i = 0; i < linesAmount; i++) {
@@ -108,8 +117,18 @@ int main()
 
 
 		// Draw functions
+		function.Activate();
+		VAO2.Bind();
 
+		shade = 0.0f;
+		glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(shade, shade, shade)));
+		glDrawArrays(GL_POINTS, 0, line.vertices.size() / 2); // divide by 2 because each vertex has x and y
 		
+
+
+
+
+
 		glfwSwapBuffers(VIEWPORT.getWindow());
 		glfwPollEvents();
 	}

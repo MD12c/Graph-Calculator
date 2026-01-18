@@ -4,6 +4,7 @@
 #include<iostream>
 #include"exprtk/exprtk.hpp"
 #include<glm/glm.hpp>
+#include<glad/glad.h>
 
 class FunctionPath {
 private:
@@ -15,9 +16,9 @@ private:
 	symbol_table_t symbol_table;
 	expression_t expression;
 	parser_t parser;
-	float x = 0.0f;
+	GLfloat x = 0.0f;
 public:
-	std::vector<glm::vec2> vertices;
+	std::vector<GLfloat> vertices;
 	FunctionPath(std::string function, unsigned int width);
 	void computeValues();
 	void parseFunction();

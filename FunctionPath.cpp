@@ -27,8 +27,9 @@ void FunctionPath::makeVertices() {
     float step = 2.0f / (m_width - 1);
     vertices.reserve(m_width);
     for (x = -1.0f; x <= 1.0f; x += step) {
-        float y = expression.value();
-        vertices.push_back(glm::vec2(x, y));
+        GLfloat y = static_cast<GLfloat>(expression.value());
+        vertices.push_back(x);
+        vertices.push_back(y);
     }
 }
 
