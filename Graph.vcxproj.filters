@@ -81,6 +81,9 @@
     <ClCompile Include="imgui\imgui_demo.cpp">
       <Filter>Source Files\imGUI</Filter>
     </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.frag">
@@ -135,6 +138,9 @@
     </ClInclude>
     <ClInclude Include="imgui\imgui.h">
       <Filter>Header Files\imGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -17,52 +17,38 @@
 #include"VBO.h"
 #include"EBO.h"
 #include"FunctionPath.h"
+#include"Grid.h"
 constexpr unsigned int width = 1900;
 constexpr unsigned int height = 1900;
 
-GLfloat gridLine[] =
+struct FunctionRenderer
 {
-	-1.0f, 0.002f, 0.0f,
-	 1.0f, 0.002f, 0.0f,
-	-1.0f,-0.002f, 0.0f,
-	 1.0f,-0.002f, 0.0f
-
-};
-
-GLuint indices[] =
-{
-	0, 1, 2,
-	2, 3, 1
-};
-
-struct LineRenderer
-{
-	FunctionPath line;
+	FunctionPath function;
 	VAO VAO2;
 	VBO VBO2;
 	bool calculateTriggered = false;
 	char userInput[128] = "";
 	float functionColor[3] = { 0.6f, 0.0f, 0.0f };
 
-	LineRenderer(unsigned int width) : line(width) {}
+	FunctionRenderer(unsigned int width) : function(width) {}
 
 	// Calculate vertices
 	void calculate(const char* fn, float userZoom){
-		line.parseFunction(fn);
-		line.makeVertices(userZoom);
+		function.parseFunction(fn);
+		function.makeVertices(userZoom);
 
 		VAO2.Bind();
-		VBO2 = VBO(line.vertices.data(), line.vertices.size() * sizeof(float));
+		VBO2 = VBO(function.vertices.data(), function.vertices.size() * sizeof(float));
 		VAO2.LinkAttrib(VBO2, 0, 2, GL_FLOAT, 2 * sizeof(float), (void*)0);
 		VAO2.Unbind();
 	}
 
-	// Draw the line
+	// Draw the function
 	void draw(GLint& colorFunctionLoc){
 		VAO2.Bind();
 		glPointSize(5.0f);
 		glUniform3fv(colorFunctionLoc, 1, glm::value_ptr(glm::vec3(functionColor[0], functionColor[1], functionColor[2])));
-		glDrawArrays(GL_POINTS, 0, line.vertices.size() / 2);
+		glDrawArrays(GL_POINTS, 0, function.vertices.size() / 2);
 		VAO2.Unbind();
 	}
 
@@ -85,9 +71,12 @@ struct LineRenderer
 
 int main()
 {
+	// Created GLFW context with glad.c implemented
+	// Name of the window, width & height of the window, background color RGB
 	Setup VIEWPORT("Graph", width, height, 0.7f, 0.7f, 0.7f);
 	VIEWPORT.glfwSetup();
 
+	// Created ImGUI context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -96,34 +85,22 @@ int main()
 	ImGui_ImplOpenGL3_Init("#version 330");
 	ImGui::GetIO().FontGlobalScale = 2.5f;
 	unsigned int userZoom = 5;
+	int temp = static_cast<int>(userZoom);
 
 	// Shader objects
-	Shader Grid("default.vert", "default.frag");
 	Shader function("function.vert", "default.frag");
 
-	// Grid line VAO
-	VAO VAO1;
-	VAO1.Bind();
-	VBO VBO1(gridLine, sizeof(gridLine));
-	EBO EBO1(indices, sizeof(indices));
-	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
-	VAO1.Unbind();
-	VBO1.Unbind();
-	EBO1.Unbind();
-	GLint colorLoc = glGetUniformLocation(Grid.ID, "Color");
-	GLint modelLoc = glGetUniformLocation(Grid.ID, "translated");
-
-
 	// Function VAO
-	std::vector<std::unique_ptr<LineRenderer>> lines;
+	std::vector<std::unique_ptr<FunctionRenderer>> functions;
 	
-	int linesNum = 3;
-	for (int i = 0; i < linesNum; i++) {
-		lines.emplace_back(std::make_unique<LineRenderer>(width));
+	int functionsNum = 3;
+	for (int i = 0; i < functionsNum; i++) {
+		functions.emplace_back(std::make_unique<FunctionRenderer>(width));
 	}
 	GLint colorFunctionLoc = glGetUniformLocation(function.ID, "Color");
 
-	
+	// Make Grid
+	Grid grid("default.vert", "default.frag");
 
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow()))
 	{
@@ -135,62 +112,29 @@ int main()
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-
-		// Draw grid
-		Grid.Activate();
-		VAO1.Bind();
-
-		GLfloat shade = 0.5f;
-		glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(shade, shade, shade)));
-
-		GLfloat spacing = 0.1f;
-		int linesAmount = 19;
-		for (int i = 0; i < linesAmount; i++) {
-			float offset = spacing + i * 0.1f - 1.0f;
-			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, glm::vec3(0.0f, offset, 0.0f));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
-		}
-		for (int i = 0; i < linesAmount; i++) {
-			float offset = spacing + i * 0.1f - 1.0f;
-			glm::mat4 model = glm::mat4(1.0f);
-			model = glm::translate(model, glm::vec3(offset, 0.0f, 0.0f));
-			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-			glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
-		}
-
-
-		// Draw centerlines 
-		glm::mat4 baseLineH = glm::mat4(1.0f);
-		baseLineH = glm::scale(baseLineH, glm::vec3(1.5f, 1.5f, 1.5f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(baseLineH));
-		shade = 0.2f;
-		glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(shade, shade, shade)));
-		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
-
-		glm::mat4 baseLineV = glm::mat4(1.0f);
-		baseLineV = glm::scale(baseLineV, glm::vec3(1.5f, 1.5f, 1.5f));
-		baseLineV = glm::rotate(baseLineV, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(baseLineV));
-		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
-		VAO1.Unbind();
+		// Draw Grid
+		grid.BindGrid();
+		grid.drawGrid();
+		grid.drawCenterlines();
+		grid.UnbindGrid();
 
 		// Draw functions
 		function.Activate();
-		for (auto& line : lines) {
-			line->draw(colorFunctionLoc);
+		for (auto& function : functions) {
+			function->draw(colorFunctionLoc);
 		}
 		
-
 		// ImGUI window creation
 		ImGui::Begin("Function input");
 		
 			//ImGui::ShowDemoWindow();
-			for (int i = 0; i < lines.size(); i++) {
+			if (ImGui::SliderInt("Zoom", &temp, 1, 10)) {
+				userZoom = static_cast<unsigned int>(temp);
+			}
+
+			for (int i = 0; i < functions.size(); i++) {
 				ImGui::PushID(i);
-				lines[i]->imguiInput(userZoom);
+				functions[i]->imguiInput(userZoom);
 				ImGui::PopID();
 			}
 
@@ -207,9 +151,6 @@ int main()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
-	VAO1.Delete();
-	VBO1.Delete();
-	EBO1.Delete();
-	Grid.Delete();
+	grid.deleteGrid();
 	return 0;
 }

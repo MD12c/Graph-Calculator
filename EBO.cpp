@@ -14,6 +14,8 @@ EBO::EBO(GLuint* indices, GLsizeiptr size) {
 
 }
 
+EBO::EBO() {}
+
 void EBO::Bind() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID); // bind the buffer to the GL_ARRAY_BUFFER target
 	// GL_ARRAY_BUFFER is a big array that contains vertex attributes such as position, color, normal, etc.

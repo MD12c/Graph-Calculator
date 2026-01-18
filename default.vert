@@ -8,7 +8,6 @@ uniform vec3 Color;
 uniform mat4 translated;
 
 void main(){
-	
 	gl_Position = translated * vec4(aPos, 1.0f);
 	color = Color;
 }
