@@ -60,7 +60,7 @@ int main()
 
 	FunctionPath line("sin(x)", width);
 	line.parseFunction();
-	line.makeVertices();
+	line.makeVertices(10);
 	VAO VAO2;
 	VAO2.Bind();
 	VBO VBO2(line.vertices.data(), line.vertices.size() * sizeof(line.vertices[0]));
@@ -105,7 +105,7 @@ int main()
 		glm::mat4 baseLineH = glm::mat4(1.0f);
 		baseLineH = glm::scale(baseLineH, glm::vec3(1.5f, 1.5f, 1.5f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(baseLineH));
-		shade = 0.0f;
+		shade = 0.2f;
 		glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(shade, shade, shade)));
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
 
@@ -119,7 +119,7 @@ int main()
 		// Draw functions
 		function.Activate();
 		VAO2.Bind();
-
+		glPointSize(5.0f);
 		shade = 0.0f;
 		glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(shade, shade, shade)));
 		glDrawArrays(GL_POINTS, 0, line.vertices.size() / 2); // divide by 2 because each vertex has x and y

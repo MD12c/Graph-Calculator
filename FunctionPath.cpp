@@ -23,13 +23,13 @@ void FunctionPath::computeValues() {
     }
 }
 
-void FunctionPath::makeVertices() {
+void FunctionPath::makeVertices(int zoom) {
     float step = 2.0f / (m_width - 1);
     vertices.reserve(m_width);
-    for (x = -1.0f; x <= 1.0f; x += step) {
+    for (x = -zoom; x <= zoom; x += step) {
         GLfloat y = static_cast<GLfloat>(expression.value());
-        vertices.push_back(x);
-        vertices.push_back(y);
+        vertices.push_back(x / zoom);
+        vertices.push_back(y / zoom);
     }
 }
 

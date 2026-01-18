@@ -22,7 +22,7 @@ public:
 	FunctionPath(std::string function, unsigned int width);
 	void computeValues();
 	void parseFunction();
-	void makeVertices();
+	void makeVertices(int zoom);
 	~FunctionPath();
 };
 
