@@ -13,6 +13,7 @@
 #include"VAO.h"
 #include"VBO.h"
 #include"EBO.h"
+#include"FunctionPath.h"
 constexpr unsigned int width = 1500;
 constexpr unsigned int height = 1500;
 
@@ -42,6 +43,7 @@ int main()
 
 
 	Shader Grid("default.vert", "default.frag");
+	//Shader function("function.vert", "default.frag");
 
 	VAO VAO1;
 	VAO1.Bind();
@@ -51,10 +53,13 @@ int main()
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
-
-
 	GLint colorLoc = glGetUniformLocation(Grid.ID, "Color");
 	GLint modelLoc = glGetUniformLocation(Grid.ID, "translated");
+
+
+	FunctionPath line("x", width);
+	line.parseFunction();
+	line.makeVertices();
 
 
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow()))
@@ -67,6 +72,7 @@ int main()
 		GLfloat shade = 0.5f;
 		glUniform3fv(colorLoc, 1, glm::value_ptr(glm::vec3(shade, shade, shade)));
 
+		// Draw grid
 		GLfloat spacing = 0.1f;
 		int linesAmount = 19;
 		for (int i = 0; i < linesAmount; i++) {
@@ -85,6 +91,8 @@ int main()
 			glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
 		}
 
+
+		// Draw centerlines 
 		glm::mat4 baseLineH = glm::mat4(1.0f);
 		baseLineH = glm::scale(baseLineH, glm::vec3(1.5f, 1.5f, 1.5f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(baseLineH));
@@ -98,6 +106,10 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(baseLineV));
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(indices[0]), GL_UNSIGNED_INT, 0);
 
+
+		// Draw functions
+
+		
 		glfwSwapBuffers(VIEWPORT.getWindow());
 		glfwPollEvents();
 	}

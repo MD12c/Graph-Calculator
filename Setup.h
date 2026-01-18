@@ -7,7 +7,6 @@
 
 class Setup {
 private:
-	GLuint m_WINDOW_ID;
 	const char* m_WINDOW_NAME;
 	unsigned int m_width;
 	unsigned int m_height;
