@@ -25,6 +25,7 @@ void FunctionPath::computeValues() {
 
 void FunctionPath::makeVertices(int zoom) {
     float step = 2.0f / (m_width - 1);
+    vertices.clear();
     vertices.reserve(m_width);
     for (x = -zoom; x <= zoom; x += step) {
         GLfloat y = static_cast<GLfloat>(expression.value());

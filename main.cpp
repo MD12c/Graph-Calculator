@@ -40,6 +40,9 @@ struct LineRenderer
 	FunctionPath line;
 	VAO VAO2;
 	VBO VBO2;
+	bool calculateTriggered = false;
+	char userInput[128] = "";
+	float functionColor[3] = { 0.6f, 0.0f, 0.0f };
 
 	LineRenderer(unsigned int width) : line(width) {}
 
@@ -55,15 +58,30 @@ struct LineRenderer
 	}
 
 	// Draw the line
-	void draw(GLint& colorFunctionLoc, glm::vec3 functionColor){
+	void draw(GLint& colorFunctionLoc){
 		VAO2.Bind();
 		glPointSize(5.0f);
-		glUniform3fv(colorFunctionLoc, 1, glm::value_ptr(functionColor));
+		glUniform3fv(colorFunctionLoc, 1, glm::value_ptr(glm::vec3(functionColor[0], functionColor[1], functionColor[2])));
 		glDrawArrays(GL_POINTS, 0, line.vertices.size() / 2);
 		VAO2.Unbind();
 	}
-};
 
+	void imguiInput(unsigned int& userZoom) {
+		ImGui::Text("Input a function:");
+		ImGui::InputText("", userInput, IM_ARRAYSIZE(userInput));
+		if (ImGui::Button("calculate") || ImGui::IsKeyPressed(ImGuiKey_Enter)) {
+			std::cout << "Calculate: " << userInput << "\n";
+			calculateTriggered = true;
+		}
+		if (calculateTriggered) {
+			ImGui::Text("Data sent");
+			calculate(userInput, userZoom);
+			calculateTriggered = false; // Reset flag & input
+			userInput[0] = '\0';
+		}
+		ImGui::ColorEdit3("Line Color", functionColor);
+	}
+};
 
 int main()
 {
@@ -77,9 +95,7 @@ int main()
 	ImGui_ImplGlfw_InitForOpenGL(VIEWPORT.getWindow(), true);
 	ImGui_ImplOpenGL3_Init("#version 330");
 	ImGui::GetIO().FontGlobalScale = 2.5f;
-	char userInput[128] = "";
-	int userZoom = 5;
-	
+	unsigned int userZoom = 5;
 
 	// Shader objects
 	Shader Grid("default.vert", "default.frag");
@@ -99,15 +115,14 @@ int main()
 
 
 	// Function VAO
-	LineRenderer line1(width);
-	LineRenderer line2(width);
-	LineRenderer line3(width);
+	std::vector<std::unique_ptr<LineRenderer>> lines;
+	
+	int linesNum = 3;
+	for (int i = 0; i < linesNum; i++) {
+		lines.emplace_back(std::make_unique<LineRenderer>(width));
+	}
 	GLint colorFunctionLoc = glGetUniformLocation(function.ID, "Color");
 
-	// Functions
-	line1.calculate("sin(x)", userZoom);
-	line2.calculate("cos(x)", userZoom);
-	line3.calculate("1/x", userZoom);
 	
 
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow()))
@@ -164,31 +179,20 @@ int main()
 
 		// Draw functions
 		function.Activate();
-		line1.draw(colorFunctionLoc, glm::vec3(0.6f, 0.0f, 0.0f));
-		line2.draw(colorFunctionLoc, glm::vec3(0.0f, 0.6f, 0.0f));
-		line3.draw(colorFunctionLoc, glm::vec3(0.0f, 0.0f, 0.6f));
-		
+		for (auto& line : lines) {
+			line->draw(colorFunctionLoc);
+		}
 		
 
 		// ImGUI window creation
-		ImGui::Begin("My name is window, ImGUI window");
+		ImGui::Begin("Function input");
 		
-		//ImGui::ShowDemoWindow();
-
-		static bool calculateTriggered = false;
-		ImGui::Text("Input a function:");
-		ImGui::InputText("Enter text", userInput, IM_ARRAYSIZE(userInput));
-
-		if (ImGui::Button("calculate") || ImGui::IsKeyPressed(ImGuiKey_Enter)){
-			std::cout << "Calculate: " << userInput << "\n";
-			userInput[0] = '\0';
-		}
-
-		if (calculateTriggered){
-			ImGui::Text("Data sent!");
-			calculateTriggered = false; //Reset
-		}
-
+			//ImGui::ShowDemoWindow();
+			for (int i = 0; i < lines.size(); i++) {
+				ImGui::PushID(i);
+				lines[i]->imguiInput(userZoom);
+				ImGui::PopID();
+			}
 
 		ImGui::End();
 		ImGui::Render();
