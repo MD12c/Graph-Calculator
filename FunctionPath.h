@@ -19,9 +19,9 @@ private:
 	GLfloat x = 0.0f;
 public:
 	std::vector<GLfloat> vertices;
-	FunctionPath(std::string function, unsigned int width);
+	FunctionPath(unsigned int width);
 	void computeValues();
-	void parseFunction();
+	void parseFunction(std::string function);
 	void makeVertices(int zoom);
 	~FunctionPath();
 };

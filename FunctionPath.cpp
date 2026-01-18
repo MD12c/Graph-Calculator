@@ -1,11 +1,11 @@
 #include "FunctionPath.h"
 
-FunctionPath::FunctionPath(std::string function, unsigned int width) : m_function(function), m_width(width){}
+FunctionPath::FunctionPath(unsigned int width) : m_width(width){}
 
 
-void FunctionPath::parseFunction() {
+void FunctionPath::parseFunction(std::string function) {
 
-    const std::string expression_string = m_function;
+    const std::string expression_string = function;
 
     symbol_table.add_variable("x", x);
     symbol_table.add_constants();
@@ -13,7 +13,7 @@ void FunctionPath::parseFunction() {
     expression.register_symbol_table(symbol_table);
     parser.compile(expression_string, expression);
 
-    computeValues();
+    //computeValues();
 }
 
 void FunctionPath::computeValues() {
