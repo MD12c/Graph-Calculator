@@ -20,61 +20,14 @@
 #include"Grid.h"
 constexpr unsigned int width = 1900;
 constexpr unsigned int height = 1900;
+#include "FunctionRenderer.h"
 
-struct FunctionRenderer
-{
-	FunctionPath function;
-	VAO VAO2;
-	VBO VBO2;
-	bool calculateTriggered = false;
-	char userInput[128] = "";
-	float functionColor[3] = { 0.6f, 0.0f, 0.0f };
-
-	FunctionRenderer(unsigned int width) : function(width) {}
-
-	// Calculate vertices
-	void calculate(const char* fn, float userZoom){
-		function.parseFunction(fn);
-		function.makeVertices(userZoom);
-
-		VAO2.Bind();
-		VBO2 = VBO(function.vertices.data(), function.vertices.size() * sizeof(float));
-		VAO2.LinkAttrib(VBO2, 0, 2, GL_FLOAT, 2 * sizeof(float), (void*)0);
-		VAO2.Unbind();
-	}
-
-	// Draw the function
-	void draw(GLint& colorFunctionLoc){
-		VAO2.Bind();
-		glPointSize(5.0f);
-		glUniform3fv(colorFunctionLoc, 1, glm::value_ptr(glm::vec3(functionColor[0], functionColor[1], functionColor[2])));
-		glDrawArrays(GL_POINTS, 0, function.vertices.size() / 2);
-		VAO2.Unbind();
-	}
-
-	void imguiInput(unsigned int& userZoom) {
-		ImGui::Text("Input a function:");
-		ImGui::InputText("", userInput, IM_ARRAYSIZE(userInput));
-		if (ImGui::Button("calculate") || ImGui::IsKeyPressed(ImGuiKey_Enter)) {
-			std::cout << "Calculate: " << userInput << "\n";
-			calculateTriggered = true;
-		}
-		if (calculateTriggered) {
-			ImGui::Text("Data sent");
-			calculate(userInput, userZoom);
-			calculateTriggered = false; // Reset flag & input
-			userInput[0] = '\0';
-		}
-		ImGui::ColorEdit3("Line Color", functionColor);
-	}
-};
-
-int main()
-{
+int main() {
 	// Created GLFW context with glad.c implemented
 	// Name of the window, width & height of the window, background color RGB
 	Setup VIEWPORT("Graph", width, height, 0.7f, 0.7f, 0.7f);
 	VIEWPORT.glfwSetup();
+
 
 	// Created ImGUI context
 	IMGUI_CHECKVERSION();
@@ -85,25 +38,25 @@ int main()
 	ImGui_ImplOpenGL3_Init("#version 330");
 	ImGui::GetIO().FontGlobalScale = 2.5f;
 	unsigned int userZoom = 5;
-	int temp = static_cast<int>(userZoom);
+	auto userZoomPrev = userZoom;
+	unsigned int userFunctionsNum = 3;
+	int tempZoom = static_cast<int>(userZoom);
+	int tempFunctions = static_cast<int>(userFunctionsNum);
 
-	// Shader objects
+
+	// Make Function VAO & Shaders
 	Shader function("function.vert", "default.frag");
-
-	// Function VAO
 	std::vector<std::unique_ptr<FunctionRenderer>> functions;
-	
-	int functionsNum = 3;
-	for (int i = 0; i < functionsNum; i++) {
+	for (int i = 0; i < userFunctionsNum; i++) {
 		functions.emplace_back(std::make_unique<FunctionRenderer>(width));
 	}
 	GLint colorFunctionLoc = glGetUniformLocation(function.ID, "Color");
 
-	// Make Grid
+
+	// Make Grid VAO & Shaders
 	Grid grid("default.vert", "default.frag");
 
-	while (!glfwWindowShouldClose(VIEWPORT.getWindow()))
-	{
+	while (!glfwWindowShouldClose(VIEWPORT.getWindow())) {
 		VIEWPORT.glClearCurrentColor();
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -112,24 +65,45 @@ int main()
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
+
 		// Draw Grid
 		grid.BindGrid();
 		grid.drawGrid();
 		grid.drawCenterlines();
 		grid.UnbindGrid();
 
+
 		// Draw functions
 		function.Activate();
 		for (auto& function : functions) {
 			function->draw(colorFunctionLoc);
+		}
+
+		if (userZoomPrev != userZoom) {
+			for (auto& function : functions) {
+				function->calculate(function->userInput, userZoom);
+				userZoomPrev = userZoom;
+			}
 		}
 		
 		// ImGUI window creation
 		ImGui::Begin("Function input");
 		
 			//ImGui::ShowDemoWindow();
-			if (ImGui::SliderInt("Zoom", &temp, 1, 10)) {
-				userZoom = static_cast<unsigned int>(temp);
+			float widthButton = (ImGui::GetContentRegionAvail().x - 10.0f) * 0.5f;
+			ImGui::Text("Zoom");
+			ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+			if (ImGui::SliderInt("##1", &tempZoom, 1, 10)) {
+				userZoom = static_cast<unsigned int>(tempZoom);
+			}
+			if (ImGui::Button("Add Function##1", ImVec2(widthButton, 0))) {
+				userFunctionsNum++;
+				functions.emplace_back(std::make_unique<FunctionRenderer>(width));
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Remove Function##2", ImVec2(widthButton, 0))) {
+				userFunctionsNum++;
+				functions.pop_back();
 			}
 
 			for (int i = 0; i < functions.size(); i++) {

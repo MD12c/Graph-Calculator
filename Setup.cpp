@@ -7,8 +7,7 @@ Setup::Setup(const char* WINDOW_NAME, unsigned int width, unsigned int height, G
 	m_RED(RED),
 	m_GREEN(GREEN),
 	m_BLUE(BLUE)
-{
-}
+{}
 
 
 void Setup::glfwSetup() {
@@ -16,6 +15,7 @@ void Setup::glfwSetup() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 	m_window = glfwCreateWindow(m_width, m_height, m_WINDOW_NAME, NULL, NULL);
 	if (m_window == NULL)
 	{
