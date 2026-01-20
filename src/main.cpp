@@ -94,7 +94,7 @@ int main() {
 		
 			//ImGui::ShowDemoWindow();
 			float widthButton = (ImGui::GetContentRegionAvail().x - 10.0f) * 0.5f;
-			ImGui::Text("Zoom");
+			ImGui::Text("Zoom:");
 			ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
 			if (ImGui::SliderInt("##1", &tempZoom, 1, 10)) {
 				userZoom = static_cast<unsigned int>(tempZoom);
