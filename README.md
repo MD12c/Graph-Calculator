@@ -44,6 +44,7 @@ The following libraries are used:
 - stb_image
 - exprtk
 - FreeType
+- DejaVu Fonts
 
 All third-party licenses are listed in
 [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md).

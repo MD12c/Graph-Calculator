@@ -59,6 +59,7 @@ int main() {
 	// Make Grid VAO & Shaders
 	Grid grid("Assets/Shaders/default.vert", "Assets/Shaders/default.frag");
 
+
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow())) {
 		VIEWPORT.glClearCurrentColor();
 		glClear(GL_COLOR_BUFFER_BIT);
