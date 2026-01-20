@@ -68,7 +68,7 @@ int main() {
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-
+		
 		// Draw Grid
 		grid.BindGrid();
 		grid.drawGrid();

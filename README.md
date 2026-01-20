@@ -19,7 +19,7 @@ Thanks to Victor Gordan and Joey de Vries for their amazing tutorials that helpe
 
 ## Screenshots
 
-![images/screenshot.png](images/screenshot.png)
+![Screenshot](Images/Preview.png)
 
 
 ## Build Instructions
