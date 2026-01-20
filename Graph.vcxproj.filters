@@ -36,28 +36,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="glad.c">
+    <ClCompile Include="src\glad.c">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="Setup.cpp">
+    <ClCompile Include="src\Graphics\Window.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderClass.cpp">
+    <ClCompile Include="src\Graphics\ShaderClass.cpp">
       <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="EBO.cpp">
+    <ClCompile Include="src\Graphics\EBO.cpp">
       <Filter>Source Files\OpenGL\Layers</Filter>
     </ClCompile>
-    <ClCompile Include="VAO.cpp">
+    <ClCompile Include="src\Graphics\VAO.cpp">
       <Filter>Source Files\OpenGL\Layers</Filter>
     </ClCompile>
-    <ClCompile Include="VBO.cpp">
+    <ClCompile Include="src\Graphics\VBO.cpp">
       <Filter>Source Files\OpenGL\Layers</Filter>
     </ClCompile>
-    <ClCompile Include="FunctionPath.cpp">
+    <ClCompile Include="src\FunctionPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_draw.cpp">
@@ -81,38 +81,38 @@
     <ClCompile Include="imgui\imgui_demo.cpp">
       <Filter>Source Files\imGUI</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
+    <ClCompile Include="src\Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="default.frag">
+    <None Include="Assets\Shaders\default.frag">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="default.vert">
+    <None Include="Assets\Shaders\default.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="function.vert">
+    <None Include="Assets\Shaders\function.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FunctionPath.h">
+    <ClInclude Include="src\FunctionPath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Setup.h">
+    <ClInclude Include="src\Graphics\Window.h">
       <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderClass.h">
+    <ClInclude Include="src\Graphics\ShaderClass.h">
       <Filter>Header Files\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="EBO.h">
+    <ClInclude Include="src\Graphics\EBO.h">
       <Filter>Header Files\OpenGL\Layers</Filter>
     </ClInclude>
-    <ClInclude Include="VAO.h">
+    <ClInclude Include="src\Graphics\VAO.h">
       <Filter>Header Files\OpenGL\Layers</Filter>
     </ClInclude>
-    <ClInclude Include="VBO.h">
+    <ClInclude Include="src\Graphics\VBO.h">
       <Filter>Header Files\OpenGL\Layers</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui_impl_glfw.h">
@@ -139,10 +139,10 @@
     <ClInclude Include="imgui\imgui.h">
       <Filter>Header Files\imGUI</Filter>
     </ClInclude>
-    <ClInclude Include="Grid.h">
+    <ClInclude Include="src\Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FunctionRenderer.h">
+    <ClInclude Include="src\FunctionRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

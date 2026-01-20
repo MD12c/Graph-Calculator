@@ -1,6 +1,6 @@
-#include "Setup.h"
+#include "Window.h"
 
-Setup::Setup(const char* WINDOW_NAME, unsigned int width, unsigned int height, GLfloat RED, GLfloat GREEN, GLfloat BLUE)
+Window::Window(const char* WINDOW_NAME, unsigned int width, unsigned int height, GLfloat RED, GLfloat GREEN, GLfloat BLUE)
 	: m_WINDOW_NAME(WINDOW_NAME),
 	m_width(width),
 	m_height(height),
@@ -10,7 +10,7 @@ Setup::Setup(const char* WINDOW_NAME, unsigned int width, unsigned int height, G
 {}
 
 
-void Setup::glfwSetup() {
+void Window::glfwSetup() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -30,17 +30,17 @@ void Setup::glfwSetup() {
 	glfwSwapBuffers(m_window);
 };
 
-GLFWwindow* Setup::getWindow() {
+GLFWwindow* Window::getWindow() {
 	return m_window;
 }
 
-Setup::~Setup() {
+Window::~Window() {
 	if (m_window) {
 		glfwDestroyWindow(m_window);
 	}
 	glfwTerminate();
 }
 
-void Setup::glClearCurrentColor() {
+void Window::glClearCurrentColor() {
 	glClearColor(m_RED, m_GREEN, m_BLUE, 1.0f);
 }

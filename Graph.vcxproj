@@ -151,10 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EBO.cpp" />
-    <ClCompile Include="FunctionPath.cpp" />
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="src\Graphics\EBO.cpp" />
+    <ClCompile Include="src\FunctionPath.cpp" />
+    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -162,22 +162,22 @@
     <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Setup.cpp" />
-    <ClCompile Include="ShaderClass.cpp" />
-    <ClCompile Include="VAO.cpp" />
-    <ClCompile Include="VBO.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Graphics\Window.cpp" />
+    <ClCompile Include="src\Graphics\ShaderClass.cpp" />
+    <ClCompile Include="src\Graphics\VAO.cpp" />
+    <ClCompile Include="src\Graphics\VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="default.frag" />
-    <None Include="default.vert" />
-    <None Include="function.vert" />
+    <None Include="Assets\Shaders\default.frag" />
+    <None Include="Assets\Shaders\default.vert" />
+    <None Include="Assets\Shaders\function.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EBO.h" />
-    <ClInclude Include="FunctionPath.h" />
-    <ClInclude Include="FunctionRenderer.h" />
-    <ClInclude Include="Grid.h" />
+    <ClInclude Include="src\Graphics\EBO.h" />
+    <ClInclude Include="src\FunctionPath.h" />
+    <ClInclude Include="src\FunctionRenderer.h" />
+    <ClInclude Include="src\Grid.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_glfw.h" />
@@ -186,10 +186,10 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
-    <ClInclude Include="Setup.h" />
-    <ClInclude Include="ShaderClass.h" />
-    <ClInclude Include="VAO.h" />
-    <ClInclude Include="VBO.h" />
+    <ClInclude Include="src\Graphics\Window.h" />
+    <ClInclude Include="src\Graphics\ShaderClass.h" />
+    <ClInclude Include="src\Graphics\VAO.h" />
+    <ClInclude Include="src\Graphics\VBO.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,7 +5,7 @@
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 
-class Setup {
+class Window {
 private:
 	const char* m_WINDOW_NAME;
 	unsigned int m_width;
@@ -13,11 +13,11 @@ private:
 	GLfloat m_RED, m_GREEN, m_BLUE;
 	GLFWwindow* m_window = nullptr;
 public:
-	Setup(const char* WINDOW_NAME, unsigned int width, unsigned int height, GLfloat RED, GLfloat GREEN, GLfloat BLUE);
+	Window(const char* WINDOW_NAME, unsigned int width, unsigned int height, GLfloat RED, GLfloat GREEN, GLfloat BLUE);
 	void glfwSetup();
 	GLFWwindow* getWindow();
 	void glClearCurrentColor();
-	~Setup();
+	~Window();
 };
 
 #endif

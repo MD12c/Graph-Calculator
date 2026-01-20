@@ -11,21 +11,23 @@
 #include<glm/gtc/type_ptr.hpp>
 #include<vector>
 
-#include"Setup.h"
-#include"ShaderClass.h"
-#include"VAO.h"
-#include"VBO.h"
-#include"EBO.h"
+#include"Graphics/Window.h"
+#include"Graphics/ShaderClass.h"
+#include"Graphics/VAO.h"
+#include"Graphics/VBO.h"
+#include"Graphics/EBO.h"
+
 #include"FunctionPath.h"
+#include "FunctionRenderer.h"
 #include"Grid.h"
 constexpr unsigned int width = 1900;
 constexpr unsigned int height = 1900;
-#include "FunctionRenderer.h"
+
 
 int main() {
 	// Created GLFW context with glad.c implemented
 	// Name of the window, width & height of the window, background color RGB
-	Setup VIEWPORT("Graph", width, height, 0.7f, 0.7f, 0.7f);
+	Window VIEWPORT("Graph", width, height, 0.7f, 0.7f, 0.7f);
 	VIEWPORT.glfwSetup();
 
 
@@ -45,7 +47,7 @@ int main() {
 
 
 	// Make Function VAO & Shaders
-	Shader function("function.vert", "default.frag");
+	Shader function("Assets/Shaders/function.vert", "Assets/Shaders/default.frag");
 	std::vector<std::unique_ptr<FunctionRenderer>> functions;
 	for (int i = 0; i < userFunctionsNum; i++) {
 		functions.emplace_back(std::make_unique<FunctionRenderer>(width));
@@ -54,7 +56,7 @@ int main() {
 
 
 	// Make Grid VAO & Shaders
-	Grid grid("default.vert", "default.frag");
+	Grid grid("Assets/Shaders/default.vert", "Assets/Shaders/default.frag");
 
 	while (!glfwWindowShouldClose(VIEWPORT.getWindow())) {
 		VIEWPORT.glClearCurrentColor();
@@ -86,7 +88,7 @@ int main() {
 			}
 		}
 		
-		// ImGUI window creation
+		// ImGUI window
 		ImGui::Begin("Function input");
 		
 			//ImGui::ShowDemoWindow();
@@ -101,8 +103,8 @@ int main() {
 				functions.emplace_back(std::make_unique<FunctionRenderer>(width));
 			}
 			ImGui::SameLine();
-			if (ImGui::Button("Remove Function##2", ImVec2(widthButton, 0))) {
-				userFunctionsNum++;
+			if (ImGui::Button("Remove Function##2", ImVec2(widthButton, 0)) && userFunctionsNum != 0) {
+				userFunctionsNum--;
 				functions.pop_back();
 			}
 

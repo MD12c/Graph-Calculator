@@ -3,12 +3,12 @@
 
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
-#include"VAO.h"
-#include"VBO.h"
-#include"EBO.h"
+#include"Graphics/VAO.h"
+#include"Graphics/VBO.h"
+#include"Graphics/EBO.h"
 #include <string>
 #include <fstream>
-#include"ShaderClass.h"
+#include"Graphics/ShaderClass.h"
 #include<glm/glm.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 #include<glm/gtc/type_ptr.hpp>

@@ -7,9 +7,9 @@
 #include <imgui.h>
 #include <iostream>
 #include "FunctionPath.h"
-#include "VAO.h"
-#include "VBO.h"
-#include "EBO.h"
+#include "Graphics/VAO.h"
+#include "Graphics/VBO.h"
+#include "Graphics/EBO.h"
 
 struct FunctionRenderer {
 	FunctionPath function;
