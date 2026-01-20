@@ -45,7 +45,7 @@ struct FunctionRenderer {
 		ImGui::Text("Input a function:");
 		ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
 		ImGui::InputText("", userInput, IM_ARRAYSIZE(userInput));
-		if (ImGui::Button("calculate") || ImGui::IsKeyPressed(ImGuiKey_Enter)) {
+		if (ImGui::Button("calculate", ImVec2(ImGui::GetContentRegionAvail().x, 0)) || ImGui::IsKeyPressed(ImGuiKey_Enter)) {
 			std::cout << "Calculate: " << userInput << "\n";
 			calculateTriggered = true;
 		}

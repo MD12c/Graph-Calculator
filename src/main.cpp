@@ -35,6 +35,7 @@ int main() {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.Fonts->AddFontFromFileTTF("Assets/Fonts/DejaVuSans.ttf", 16.0f);
 	ImGui::StyleColorsDark();
 	ImGui_ImplGlfw_InitForOpenGL(VIEWPORT.getWindow(), true);
 	ImGui_ImplOpenGL3_Init("#version 330");

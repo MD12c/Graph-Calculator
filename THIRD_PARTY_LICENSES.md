@@ -31,3 +31,9 @@ See licenses/zlib.txt
 ### FreeType
 License: FreeType License  
 See licenses/freetype.txt
+
+### DejaVu Fonts
+License: DejaVu Fonts License
+Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved. Bitstream Vera is
+a trademark of Bitstream, Inc.
+See licences/DejaVu Fonts License.txt
