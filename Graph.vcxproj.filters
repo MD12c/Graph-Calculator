@@ -95,6 +95,7 @@
     <None Include="Assets\Shaders\function.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="THIRD_PARTY_LICENSES.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FunctionPath.h">
@@ -145,5 +146,10 @@
     <ClInclude Include="src\FunctionRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="licences\MIT.txt" />
+    <Text Include="licences\FreeType.txt" />
+    <Text Include="licences\Zlib.txt" />
   </ItemGroup>
 </Project>

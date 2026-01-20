@@ -172,6 +172,7 @@
     <None Include="Assets\Shaders\default.frag" />
     <None Include="Assets\Shaders\default.vert" />
     <None Include="Assets\Shaders\function.vert" />
+    <None Include="THIRD_PARTY_LICENSES.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Graphics\EBO.h" />
@@ -190,6 +191,11 @@
     <ClInclude Include="src\Graphics\ShaderClass.h" />
     <ClInclude Include="src\Graphics\VAO.h" />
     <ClInclude Include="src\Graphics\VBO.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="licences\FreeType.txt" />
+    <Text Include="licences\MIT.txt" />
+    <Text Include="licences\Zlib.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
