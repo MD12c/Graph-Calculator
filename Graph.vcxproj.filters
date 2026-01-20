@@ -149,7 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="licences\MIT.txt" />
-    <Text Include="licences\FreeType.txt" />
-    <Text Include="licences\Zlib.txt" />
+    <Text Include="licences\freetype.txt" />
+    <Text Include="licences\zlib.txt" />
   </ItemGroup>
 </Project>

@@ -43,6 +43,7 @@ struct FunctionRenderer {
 
 	void imguiInput(unsigned int& userZoom) {
 		ImGui::Text("Input a function:");
+		ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
 		ImGui::InputText("", userInput, IM_ARRAYSIZE(userInput));
 		if (ImGui::Button("calculate") || ImGui::IsKeyPressed(ImGuiKey_Enter)) {
 			std::cout << "Calculate: " << userInput << "\n";
@@ -54,7 +55,8 @@ struct FunctionRenderer {
 			calculateTriggered = false; // Reset flag & input
 			userInput[0] = '\0';
 		}
-		ImGui::ColorEdit3("Line Color", functionColor);
+		ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+		ImGui::ColorEdit3("", functionColor);
 	}
 };
 

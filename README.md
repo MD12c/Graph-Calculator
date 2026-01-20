@@ -5,21 +5,18 @@ It supports interactive visualization of functions and a simple GUI for function
 
 This is my first OpenGL project which I did for learning graphics programing and software architecture.
 
----
 
 ## Features
 
 - OpenGL-based rendering
-- Function plotting (such as x^2, sin(x), sqrt(x) ...)
+- Function plotting (such as x^2, sin(x), sqrt(x) ... )
 - Grid and axis rendering
 - ImGui-based user interface
 
----
 
 ## Screenshots
 
 
----
 
 ## Build Instructions
 
@@ -43,5 +40,3 @@ The following libraries are used:
 
 All third-party licenses are listed in
 [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md).
-
----
