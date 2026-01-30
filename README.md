@@ -2,7 +2,7 @@
 
 Graph is a C++ application that renders mathematical functions using OpenGL.
 It supports interactive visualization of functions and a simple GUI for function input.
-This project is currently in developement and additionnal features such as Cmake build with functions and axis intersection points calculation are coming soon.
+This project is currently in developement and additionnal features such as functions and axis intersection points calculations are coming.
 
 This is my first OpenGL project which I did for learning graphics programing and software architecture.
 
@@ -24,8 +24,16 @@ Thanks to Victor Gordan and Joey de Vries for their amazing tutorials that helpe
 
 ## Build Instructions
 
-For now only visual studio build
-
+This is a Visual Studio build only.
+Clone the repo and open it in Visual Studio then build and run it as any other MSVC project.
+If the app screen is too large you can change it in
+`./src/main.cpp`
+The first two `constexpr` are the width and the height in pixels.
+```cpp
+constexpr unsigned int width = 1900;
+constexpr unsigned int height = 1900;
+```
+Be shure that the two stay the same.
 
 ### Requirements
 
