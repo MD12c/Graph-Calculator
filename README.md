@@ -26,8 +26,8 @@ Thanks to Victor Gordan and Joey de Vries for their amazing tutorials that helpe
 
 This is a Visual Studio build only.
 Clone the repo and open it in Visual Studio then build and run it as any other MSVC project.
-To be able to build the project you must have
-![Screenshot](Images/msvc.png)
+To be able to build the project you must have\
+![Screenshot](Images/msvc.png)\
 installed from Visual Studio installer.
 
 If the app screen is too large you can change it in

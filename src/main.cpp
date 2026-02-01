@@ -26,7 +26,7 @@ constexpr unsigned int height = 1900;
 // Be sure that the two stay the same
 
 int main() {
-	// Created GLFW context with glad.c implemented
+	// Created GLFW context with glad.c implemented 
 	// Name of the window, width & height of the window, background color RGB
 	Window VIEWPORT("Graph", width, height, 0.7f, 0.7f, 0.7f);
 	VIEWPORT.glfwSetup();
