@@ -23,7 +23,7 @@
 constexpr unsigned int width = 1900;
 constexpr unsigned int height = 1900;
 // Width and height of the app
-// Be shure that the two stay the same
+// Be sure that the two stay the same
 
 int main() {
 	// Created GLFW context with glad.c implemented

@@ -26,6 +26,10 @@ Thanks to Victor Gordan and Joey de Vries for their amazing tutorials that helpe
 
 This is a Visual Studio build only.
 Clone the repo and open it in Visual Studio then build and run it as any other MSVC project.
+To be able to build the project you must have
+![Screenshot](Images/msvc.png)
+installed from Visual Studio installer.
+
 If the app screen is too large you can change it in
 `./src/main.cpp`
 The first two `constexpr` are the width and the height in pixels.
@@ -33,9 +37,9 @@ The first two `constexpr` are the width and the height in pixels.
 constexpr unsigned int width = 1900;
 constexpr unsigned int height = 1900;
 ```
-Be shure that the two stay the same.
+Be sure that the two stay the same.
 
-### Requirements
+### System Requirements
 
 - C++17 or newer
 - OpenGL-capable GPU
